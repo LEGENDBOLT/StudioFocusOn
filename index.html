@@ -21,6 +21,14 @@
 </head>
   <body class="bg-slate-900 text-slate-100 antialiased">
     <div id="root"></div>
+    <script>
+      // Polyfill process.env for browser environments where it's not defined,
+      // like on GitHub Pages. This prevents a ReferenceError from crashing the app
+      // when the code tries to access process.env.API_KEY.
+      if (typeof process === 'undefined') {
+        window.process = { env: {} };
+      }
+    </script>
     <script type="text/babel" data-presets="react,typescript" src="./index.tsx"></script>
   </body>
 </html>
