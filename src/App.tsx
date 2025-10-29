@@ -161,7 +161,7 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-900 text-slate-100 antialiased flex flex-col font-sans">
       <main className="flex-grow container mx-auto px-4 py-8 max-w-lg">
         {renderView()}
       </main>
