@@ -16,8 +16,9 @@ function getStorageValue<T>(key: string, defaultValue: T): T {
 }
 
 export function useLocalStorage<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-  const [value, setValue] = useState(() => {
-    return getStorageValue(key, defaultValue);
+  const [value, setValue] = useState<T>(() => {
+    const storedValue = getStorageValue(key, defaultValue);
+    return storedValue !== null ? storedValue : defaultValue;
   });
 
   useEffect(() => {

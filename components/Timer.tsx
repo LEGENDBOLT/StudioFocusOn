@@ -8,16 +8,16 @@ interface TimerProps {
 }
 
 const Timer: React.FC<TimerProps> = ({ onStudySessionEnd, profiles, onAddProfile }) => {
-  const [selectedProfileId, setSelectedProfileId] = useState<string>(profiles[0]?.id || 'default');
-  
-  const selectedProfile = useMemo(() => 
-    profiles.find(p => p.id === selectedProfileId) || profiles[0], 
-    [selectedProfileId, profiles]
+  const [selectedProfileId, setSelectedProfileId] = useState<string>(() => (profiles && profiles.length > 0 ? profiles[0].id : 'default'));
+
+  const selectedProfile = useMemo(() =>
+    profiles.find(p => p.id === selectedProfileId) || (profiles && profiles.length > 0 ? profiles[0] : null),
+  [selectedProfileId, profiles]
   );
   
   const [mode, setMode] = useState<'study' | 'break'>('study');
-  const [time, setTime] = useState(selectedProfile.studyTime);
-  const [initialTime, setInitialTime] = useState(selectedProfile.studyTime);
+  const [time, setTime] = useState(selectedProfile ? selectedProfile.studyTime : 0);
+  const [initialTime, setInitialTime] = useState(selectedProfile ? selectedProfile.studyTime : 0);
   const [isRunning, setIsRunning] = useState(false);
 
   const [showCreator, setShowCreator] = useState(false);
@@ -104,6 +104,14 @@ const Timer: React.FC<TimerProps> = ({ onStudySessionEnd, profiles, onAddProfile
 
   const timerColor = mode === 'study' ? 'text-sky-400' : 'text-emerald-400';
   const progressBg = mode === 'study' ? 'bg-sky-400' : 'bg-emerald-400';
+
+  if (!selectedProfile) {
+    return (
+        <div className="flex flex-col items-center justify-center h-full text-center">
+            <p className="text-slate-400">Caricamento profili...</p>
+        </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-start h-full text-center">

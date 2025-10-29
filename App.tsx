@@ -20,6 +20,14 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [lastSessionDuration, setLastSessionDuration] = useState(45);
 
+  if (!profiles || profiles.length === 0) {
+    return (
+        <div className="flex flex-col items-center justify-center h-full text-center">
+            <p className="text-slate-400">Caricamento in corso...</p>
+        </div>
+    );
+  }
+
   const handleStudySessionEnd = useCallback((duration: number) => {
     setLastSessionDuration(duration / 60);
     setIsModalOpen(true);
