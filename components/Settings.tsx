@@ -6,9 +6,10 @@ interface SettingsProps {
     profiles: TimerProfile[];
     setSessions: React.Dispatch<React.SetStateAction<StudySession[]>>;
     setProfiles: React.Dispatch<React.SetStateAction<TimerProfile[]>>;
+    onSelectKey: () => void;
 }
 
-const Settings: React.FC<SettingsProps> = ({ sessions, profiles, setSessions, setProfiles }) => {
+const Settings: React.FC<SettingsProps> = ({ sessions, profiles, setSessions, setProfiles, onSelectKey }) => {
 
     const handleExport = () => {
         const dataToExport: BackupData = {
@@ -75,6 +76,19 @@ const Settings: React.FC<SettingsProps> = ({ sessions, profiles, setSessions, se
     return (
         <div className="space-y-8">
             <h1 className="text-3xl font-bold text-white">Impostazioni</h1>
+
+            <div className="bg-slate-800 p-6 rounded-xl shadow-lg">
+                <h2 className="text-xl font-semibold text-white mb-2">Google AI API Key</h2>
+                <p className="text-slate-400 mb-6">
+                    Se le funzioni AI smettono di funzionare o riscontri errori, prova a selezionare nuovamente o a cambiare la tua API Key.
+                </p>
+                 <button
+                    onClick={onSelectKey}
+                    className="w-full py-3 px-4 text-md font-semibold rounded-full bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors"
+                >
+                    Cambia API Key
+                </button>
+            </div>
 
             <div className="bg-slate-800 p-6 rounded-xl shadow-lg">
                 <h2 className="text-xl font-semibold text-white mb-2">Gestione Dati</h2>
