@@ -1,0 +1,37 @@
+export interface PerformanceMetrics {
+  stress: number; // 1-5
+  tiredness: number; // 1-5
+  happiness: number; // 1-5
+  productivity: number; // 1-5
+}
+
+export interface StudySession extends PerformanceMetrics {
+  id: string;
+  date: string; // ISO string
+  duration: number; // in minutes
+  notes: string;
+}
+
+export interface TimerProfile {
+  id: string;
+  name: string;
+  studyTime: number; // in seconds
+  breakTime: number; // in seconds
+}
+
+export enum View {
+  Timer = 'TIMER',
+  Analytics = 'ANALYTICS',
+  Chat = 'CHAT',
+  Settings = 'SETTINGS',
+}
+
+export interface ChatMessage {
+  role: 'user' | 'model';
+  text: string;
+}
+
+export interface BackupData {
+  sessions: StudySession[];
+  profiles: TimerProfile[];
+}
